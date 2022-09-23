@@ -60,14 +60,14 @@ fetch("http://localhost:3000/api/products/" + idProduct)
       name: titleProduct.textContent,
       price: priceProduct.textContent,
       color: colorPicked.value,
-      quantity: quantityPicked.value,
+      quantity: parseInt(quantityPicked.value),
     };
 
 
       let basket = getBasket();
       let findProduct = basket.find(p => p.id == idProduct && p.color == colorPicked.value);
       if (findProduct !=undefined){
-          findProduct.quantity++;
+          findProduct.quantity = findProduct.quantity + selection.quantity;
       } else {
           quantity;
           basket.push(selection);
