@@ -5,14 +5,16 @@ let imgProduct = document.querySelector(".item__img");
 let img = document.createElement("img");
 imgProduct.appendChild(img);
 
+
+
 let titleProduct = document.getElementById("title");
 let priceProduct = document.getElementById("price");
 let descriptionProduct = document.getElementById("description");
 let colorsProduct = document.getElementById("colors");
-let imageProduct = document.getElementById("imageUrl");;
-let altProduct = document.getElementById("altTxt");;
 
-const colorPicked = document. querySelector("#colors");
+
+
+const colorPicked = document.querySelector("#colors");
 const quantityPicked = document.querySelector("#quantity");
 
 
@@ -25,7 +27,6 @@ fetch("http://localhost:3000/api/products/" + idProduct)
         titleProduct.textContent = product.name ;
         priceProduct.textContent = product.price ;
         descriptionProduct.textContent = product.description;
-
         colorsProduct.querySelector = ('select');
         colorsProduct[0] = new Option("--SVP, choisissez une couleur --","",true,true);
         product.colors.forEach(function(element,key) {
@@ -55,8 +56,8 @@ fetch("http://localhost:3000/api/products/" + idProduct)
     
   const selection = {
       id: idProduct,
-      img: imageProduct,
-      alt: altProduct,
+      img: img.src,
+      alt: img.alt,
       name: titleProduct.textContent,
       price: priceProduct.textContent,
       color: colorPicked.value,
