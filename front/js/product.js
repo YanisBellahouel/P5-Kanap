@@ -27,14 +27,13 @@ fetch("http://localhost:3000/api/products/" + idProduct)
         titleProduct.textContent = product.name ;
         priceProduct.textContent = product.price ;
         descriptionProduct.textContent = product.description;
-        colorsProduct.querySelector = ('select');
-        colorsProduct[0] = new Option("--SVP, choisissez une couleur --","",true,true);
-        product.colors.forEach(function(element,key) {
-            colorsProduct[key+1] = new Option(element,key);
+        for (i = 0 ; i < product.colors.length ; i += 1) {
+            document.querySelector("#colors").innerHTML += `<option value="${product.colors[i]}">${product.colors[i]}</option>`
+            }
         });
         
         
-    })
+    
 
 
 
