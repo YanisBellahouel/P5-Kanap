@@ -15,7 +15,7 @@ function products(result) {
   for(let kanap in result ){
     
     
-  //creation des elements 
+  //afficher les produits
     let btn = document.createElement('a');
     btn.setAttribute("href","./product.html?id=" + result[kanap]._id)
     let article = document.createElement('article');

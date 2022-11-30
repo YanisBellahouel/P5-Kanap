@@ -1,6 +1,7 @@
+// nouvelle url + id
 const idProduct = new URL(window.location.href).searchParams.get("id");
 
-
+// création des éléments
 let imgProduct = document.querySelector(".item__img");
 let img = document.createElement("img");
 imgProduct.appendChild(img);
@@ -18,7 +19,7 @@ const colorPicked = document.querySelector("#colors");
 const quantityPicked = document.querySelector("#quantity");
 
 
-
+// récupération des paramétres du produit
 fetch("http://localhost:3000/api/products/" + idProduct)
     .then((response) => response.json())    
     .then((product) => {
@@ -51,8 +52,9 @@ fetch("http://localhost:3000/api/products/" + idProduct)
   
   }
   
+  //fonction pour ajouter le produit
   function addBasket(product){
-    
+    //les paramétres du produit
   const selection = {
       id: idProduct,
       img: img.src,
@@ -63,7 +65,7 @@ fetch("http://localhost:3000/api/products/" + idProduct)
       quantity: parseInt(quantityPicked.value),
     };
 
-
+    // si le produit est de nouveau ajouter on rajoute la quantité souhaité
       let basket = getBasket();
       let findProduct = basket.find(p => p.id == idProduct && p.color == colorPicked.value);
       if (findProduct !=undefined){
@@ -75,7 +77,7 @@ fetch("http://localhost:3000/api/products/" + idProduct)
       saveBasket(basket);
   }
    
-
+// la fonction est activé au clic
   document.querySelector("#addToCart").addEventListener("click", function(event) {
   event.preventDefault();
   addBasket();

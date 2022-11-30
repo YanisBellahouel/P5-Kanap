@@ -1,9 +1,10 @@
+//récupération du localstorage
 let addBasket = JSON.parse(localStorage.getItem("basket"));
 
 
 let cart__items = document.querySelector("#cart__items");
 
-
+//afficher le ou les produits 
 function getBasket() {
 
 if (addBasket === null || addBasket.lenght == 0){
@@ -11,16 +12,14 @@ if (addBasket === null || addBasket.lenght == 0){
 console.log("le panier est vide");
 
 }else{
-
+    // disposition des éléments
     for (i = 0 ; i < addBasket.length ; i++) {
         let article = document.createElement("article");
         cart__items.appendChild(article);
         article.className = "cart__item";
         article.dataset.id =  addBasket[i].id;
         article.dataset.color = addBasket[i].color;
-        // dataId = document.createAttribute("data-id");
-        // dataId.value = addBasket[i].id;
-        // article.setAttribute(dataId); 
+       
         
     
             let divImg = document.createElement("div");
@@ -97,7 +96,7 @@ console.log("le panier est vide");
 }}}
     getBasket()
 
-
+// fonction pour le total du prix et de la quantité
     function getTotals(){
 
         let elQty = document.getElementsByClassName('itemQuantity');
@@ -122,6 +121,7 @@ console.log("le panier est vide");
     }
     getTotals();
 
+    // fonction pour supprimer un produit 
     function delProduct() {
         let delItem = document.querySelectorAll('.deleteItem');
         
@@ -151,6 +151,7 @@ console.log("le panier est vide");
     }
     delProduct();
 
+    // fonction pour changer la quantité 
     function changeQty() {
         let itemQty = document.querySelectorAll('.itemQuantity');
         for (let i = 0; i < itemQty.length; i++) {
@@ -180,11 +181,12 @@ console.log("le panier est vide");
 
 let form = document.querySelector(".cart__order__form");
 
+// création des éxpréssion régulières
 let nameRegExp = new RegExp("^[A-zÀ-ú \-]+$");
 let adressRegExp = new RegExp("^[A-zÀ-ú0-9 ,.'\-]+$");
 let emailRegExp = new RegExp("^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$");
             
-    
+    // vérification du formulaire
 let firstNameErrorMsg = document.querySelector('#firstNameErrorMsg');
 form.firstName.addEventListener('change', function(e) {
     let value = e.target.value;
@@ -234,6 +236,8 @@ form.email.addEventListener('change', function(e) {
         emailErrorMsg.innerHTML = 'veuillez vérifier votre email.';
     }
 });
+
+//fonction pour confirmer la commande 
     
 function getOrder(){
 let order = document.querySelector('#order');
