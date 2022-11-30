@@ -178,20 +178,18 @@ console.log("le panier est vide");
     }
     changeQty();
 
-
-    
 let form = document.querySelector(".cart__order__form");
 
-
-let adressRegExp = new RegExp("^[A-zÀ-ú0-9 ,.'\-]+$");
 let nameRegExp = new RegExp("^[A-zÀ-ú \-]+$");
-let emailRegExp = new RegExp("^[a-zA-Z0-9_. -]+@[a-zA-Z.-]+[.]{1}[a-z]{2,10}$");
-
+let adressRegExp = new RegExp("^[A-zÀ-ú0-9 ,.'\-]+$");
+let emailRegExp = new RegExp("^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$");
+            
+    
 let firstNameErrorMsg = document.querySelector('#firstNameErrorMsg');
 form.firstName.addEventListener('change', function(e) {
     let value = e.target.value;
     if (nameRegExp.test(value)){
-        firstNameErrorMsg.innerHTML = '';
+        return true;
     } else {
         firstNameErrorMsg.innerHTML = 'veuillez vérifier votre prénom.';
     }
@@ -201,7 +199,7 @@ let lastNameErrorMsg = document.querySelector('#lastNameErrorMsg');
 form.lastName.addEventListener('change', function(e) {
     let value = e.target.value;
     if (nameRegExp.test(value)){
-        lastNameErrorMsg.innerHTML = '';
+        return true;
     } else {
         lastNameErrorMsg.innerHTML = 'veuillez vérifier votre nom.';
     }
@@ -211,7 +209,7 @@ let adressErrorMsg = document.querySelector('#addressErrorMsg');
 form.address.addEventListener('change', function(e) {
     let value = e.target.value;
     if (adressRegExp.test(value)){
-        adressErrorMsg.innerHTML = '';
+        return true;
     } else {
         adressErrorMsg.innerHTML = 'veuillez vérifier votre adresse.';
     }
@@ -221,7 +219,7 @@ let cityErrorMsg = document.querySelector('#cityErrorMsg');
 form.city.addEventListener('change', function(e) {
     let value = e.target.value;
     if (nameRegExp.test(value)){
-        cityErrorMsg.innerHTML = '';
+        return true;
     } else {
         cityErrorMsg.innerHTML = 'veuillez vérifier votre ville.';
     }
@@ -231,15 +229,59 @@ let emailErrorMsg = document.querySelector('#emailErrorMsg');
 form.email.addEventListener('change', function(e) {
     let value = e.target.value;
     if (emailRegExp.test(value)){
-        emailErrorMsg.innerHTML = '';
+        return true;
     } else {
         emailErrorMsg.innerHTML = 'veuillez vérifier votre email.';
     }
 });
     
+function getOrder(){
+let order = document.querySelector('#order');
 
+order.addEventListener('click', function(e) {
+    e.preventDefault();
+ 
 
+    let inputFirstName = document.getElementById('firstName').value;
+    let inputLastName = document.getElementById('lastName').value;
+    let inputAddress = document.getElementById('address').value;
+    let inputCity = document.getElementById('city').value;
+    let inputEmail = document.getElementById('email').value;
+   
+   
+    
 
+    if (addBasket == null) {
+        alert("veuillez ajouter des produits dans votre panier");
+        e.preventDefault();
+    } else if (inputFirstName.value === "" || inputLastName.value === "" || inputAddress.value === "" || inputCity.value === "" || inputEmail.value === "") {
+        alert("Vous devez renseigner vos coordonnées pour passer la commande !");
+        e.preventDefault();
+    } else if (nameRegExp.test(inputFirstName) ==  false || nameRegExp.test(inputLastName) ==  false || adressRegExp.test(inputAddress) ==  false || nameRegExp.test(inputCity) ==  false || emailRegExp.test(inputEmail) == false) {
+        alert("Vérifiez vos coordonnées pour passer la commande !");
+        e.preventDefault();
+    } else {
+        let contact = {
+            firstName: inputFirstName,
+            lastName: inputLastName,
+            address: inputAddress,
+            city: inputCity,
+            email: inputEmail,
+        }
+        localStorage.setItem('contact', JSON.stringify(contact));
+      
+    }  
+    fetch("http://localhost:3000/api/products/order", {
+        method: 'POST',
+        body: JSON.stringify(contact),
+        headers: { 
+            'Content-Type': 'application/json' 
+            },
+        })
+
+})
+}
+getOrder();
         
    
 
