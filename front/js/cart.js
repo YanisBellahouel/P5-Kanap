@@ -272,17 +272,40 @@ order.addEventListener('click', function(e) {
             city: inputCity,
             email: inputEmail,
         }
+
+        let productIDs = [] 
+        for (let i = 0; i<addBasket.length ; i++){
+             
+            productIDs.push(addBasket[i].id)
+
+        }
+
         localStorage.setItem('contact', JSON.stringify(contact));
-      
-    }  
-    fetch("http://localhost:3000/api/products/order", {
+        
+        let requestData = {
+            contact: contact,
+            products: productIDs
+        }
+
+      const post =  {
         method: 'POST',
-        body: JSON.stringify(contact),
+        body: JSON.stringify(requestData),
         headers: { 
             'Content-Type': 'application/json' 
             },
-        })
+    }
 
+    fetch("http://localhost:3000/api/products/order", post)
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        localStorage.setItem("orderId", data.orderId);
+
+        document.location.href = 'confirmation.html?id='+ data.orderId;
+        
+    })
+    }  
+    
 })
 }
 getOrder();
