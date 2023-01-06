@@ -1,8 +1,19 @@
-function confirm(){
-    const orderId = document.getElementById('orderId');
-    orderId.innerHTML = localStorage.getItem('orderId');
+// function confirm(){
+//     const orderId = document.getElementById('orderId');
+//     orderId.innerHTML = localStorage.getItem('orderId');
 
-    localStorage.clear();
+//     localStorage.clear();
     
-}
-confirm();
+// }
+// confirm();
+
+//Récupération du numéro de commande dans l'URL
+let str = window.location.href;
+let url = new URL(str);
+let idURL = url.searchParams.get("id");
+
+let orderId = document.getElementById('orderId');
+orderId.innerHTML = idURL;
+
+localStorage.clear();
+
