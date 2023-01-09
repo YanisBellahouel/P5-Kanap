@@ -6,7 +6,9 @@ let cart__items = document.querySelector("#cart__items");
 //afficher le ou les produits
 function getBasket() {
   if (addBasket === null || addBasket.length == 0) {
-    console.log("le panier est vide");
+    let p = document.createElement("p");
+    cart__items.appendChild(p);
+    p.innerHTML = "votre panier est vide";
   } else {
     // disposition des éléments
     for (i = 0; i < addBasket.length; i++) {
@@ -175,8 +177,8 @@ changeQty();
 let form = document.querySelector(".cart__order__form");
 
 // création des éxpréssion régulières
-let nameRegExp = new RegExp("^[A-zÀ-ú -]+$");
-let adressRegExp = new RegExp("^[A-zÀ-ú0-9 ,.'-]+$");
+let nameRegExp = new RegExp("[a-zA-Z-]");
+let adressRegExp = new RegExp("[a-zA-Z0-9.-_]");
 let emailRegExp = new RegExp(
   "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$"
 );
