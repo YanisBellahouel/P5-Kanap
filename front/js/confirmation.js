@@ -1,12 +1,3 @@
-// function confirm(){
-//     const orderId = document.getElementById('orderId');
-//     orderId.innerHTML = localStorage.getItem('orderId');
-
-//     localStorage.clear();
-    
-// }
-// confirm();
-
 //Récupération du numéro de commande dans l'URL
 let str = window.location.href;
 let url = new URL(str);
