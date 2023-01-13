@@ -51,7 +51,6 @@ function addBasket(product) {
     img: img.src,
     alt: img.alt,
     name: titleProduct.textContent,
-    price: priceProduct.textContent,
     color: colorPicked.value,
     quantity: parseInt(quantityPicked.value),
   };

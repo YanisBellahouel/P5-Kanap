@@ -23,7 +23,7 @@ const getBasket = async () => {
     }
   }
 };
-// disposition des éléments + fonctions 
+// disposition des éléments + fonctions
 function displayProduct(productApi, productCart) {
   let article = document.createElement("article");
   cart__items.appendChild(article);
@@ -96,7 +96,8 @@ function displayProduct(productApi, productCart) {
 
   dlt.innerHTML = "supprimer";
   dlt.className = "deleteItem";
-// fonctions qui permet de connaitre le total d'article et le total du prix
+
+  // fonctions qui permet de connaitre le total d'article et le total du prix
   function getTotals() {
     let elQty = document.getElementsByClassName("itemQuantity");
     let myLength = elQty.length,
@@ -111,47 +112,18 @@ function displayProduct(productApi, productCart) {
     totalPrice = 0;
 
     for (let i = 0; i < myLength; ++i) {
-      totalPrice += elQty[i].valueAsNumber * addBasket[i].price;
+      totalPrice += elQty[i].valueAsNumber * productApi.price;
     }
 
     let productTotalPrice = document.getElementById("totalPrice");
     productTotalPrice.innerHTML = totalPrice;
   }
+
   getTotals();
-// fonction qui permet de supprimer un produit
-  function delProduct() {
-    let delItem = document.querySelectorAll(".deleteItem");
-
-    for (let i = 0; i < delItem.length; i++) {
-      delItem[i].addEventListener("click", function (event) {
-        let articleDelItemID = event.target
-          .closest("article")
-          .getAttribute("data-id");
-        let articleDelItemColor = event.target
-          .closest("article")
-          .getAttribute("data-color");
-
-        productToDel = addBasket.find(
-          (product) =>
-            product.id !== articleDelItemID &&
-            product.color !== articleDelItemColor
-        );
-
-        newAddbasket = addBasket.filter(
-          (product) =>
-            product.id !== articleDelItemID ||
-            product.color !== articleDelItemColor
-        );
-
-        localStorage.setItem("basket", JSON.stringify(newAddbasket));
-
-        location.reload();
-      });
-    }
-  }
+  // on appelle la fonction de delete
   delProduct();
-
   // fonction pour changer la quantité d'un article
+
   function changeQty() {
     let itemQty = document.querySelectorAll(".itemQuantity");
     for (let i = 0; i < itemQty.length; i++) {
@@ -161,18 +133,17 @@ function displayProduct(productApi, productCart) {
         let newItemQty = itemQty[i].value;
 
         const newAddBasket = {
-          id: addBasket[i].id,
-          img: addBasket[i].img,
-          alt: addBasket[i].alt,
-          name: addBasket[i].name,
-          color: addBasket[i].color,
-          price: addBasket[i].price,
+          id: productCart.id,
+          img: productCart.img,
+          alt: productCart.alt,
+          name: productCart.name,
+          color: productCart.color,
           quantity: parseInt(newItemQty),
         };
 
         addBasket[i] = newAddBasket;
         localStorage.setItem("basket", JSON.stringify(addBasket));
-// on rappel la fonction total car la quantité du produit a changer
+        // on rappel la fonction total car la quantité du produit a changer
         getTotals();
       });
     }
@@ -180,6 +151,37 @@ function displayProduct(productApi, productCart) {
   changeQty();
 }
 getBasket();
+// fonction qui permet de supprimer un produit
+function delProduct() {
+  let delItem = document.querySelectorAll(".deleteItem");
+
+  for (let i = 0; i < delItem.length; i++) {
+    delItem[i].addEventListener("click", function (event) {
+      let articleDelItemID = event.target
+        .closest("article")
+        .getAttribute("data-id");
+      let articleDelItemColor = event.target
+        .closest("article")
+        .getAttribute("data-color");
+
+      productToDel = addBasket.find(
+        (product) =>
+          product.id !== articleDelItemID &&
+          product.color !== articleDelItemColor
+      );
+
+      newAddbasket = addBasket.filter(
+        (product) =>
+          product.id !== articleDelItemID ||
+          product.color !== articleDelItemColor
+      );
+
+      localStorage.setItem("basket", JSON.stringify(newAddbasket));
+
+      location.reload();
+    });
+  }
+}
 
 let form = document.querySelector(".cart__order__form");
 
