@@ -4,9 +4,9 @@ fetch("http://localhost:3000/api/products")
 
   .then((result) => {
     products(result);
-    console.log(result);
+   
   })
-  .catch((error) => console.error("erreur" + error));
+  .catch((error) => alert("erreur" + error));
 
 function products(result) {
   for (let kanap in result) {

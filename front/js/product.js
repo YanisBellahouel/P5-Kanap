@@ -29,11 +29,11 @@ fetch("http://localhost:3000/api/products/" + idProduct)
       ).innerHTML += `<option value="${product.colors[i]}">${product.colors[i]}</option>`;
     }
   });
-
+//fonction pour sauvegarder le localstorage
 function saveBasket(basket) {
   localStorage.setItem("basket", JSON.stringify(basket));
 }
-
+// on met les produits dans un tableau
 function getBasket() {
   let basket = localStorage.getItem("basket");
   if (basket == null) {
@@ -70,12 +70,12 @@ function addBasket(product) {
   saveBasket(basket);
 }
 
-// la fonction est activé au clic
+// la fonction est activé au clic et on vérifie la couleur et la quantité
 document.querySelector("#addToCart").addEventListener(
   "click",
   function (event) {
     event.preventDefault();
-    if (colorPicked.value === "" || parseInt(quantityPicked.value) === 0) {
+    if (colorPicked.value === "" || parseInt(quantityPicked.value) <= 0 || parseInt(quantityPicked.value) > 100) {
       alert("veuillez choisir une quantité et une couleur");
     } else {
       addBasket();

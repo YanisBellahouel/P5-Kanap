@@ -5,5 +5,5 @@ let idURL = url.searchParams.get("id");
 
 let orderId = document.getElementById("orderId");
 orderId.innerHTML = idURL;
-
+// on clear le localstorage
 localStorage.clear();
